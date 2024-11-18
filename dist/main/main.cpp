@@ -18,30 +18,33 @@ public:
     {
         // Create the context pointer of this module
         SampleCppModule::CreateContext();
-        SampleCppModule::SayHelloToConsole();
 
         // Get the interface pointer (for GUI launcher, from other modules)
-        /*CSampleModule->m_interface = ModuleInterface::GetEditorModuleByName(this->m_name);
+        CSampleModule->m_interface = ModuleInterface::GetEditorModuleByName(this->m_name);
 
         // Adding functions
-        this->AddFunction(RegisterPackages, "RegisterPackages");
+        this->AddFunction(SampleCppModule::HelloWorld, "HelloWorld");
+        this->AddFunction(SampleCppModule::FunctionWithArg, "Arg");
+        this->AddFunction(SampleCppModule::FunctionWithArgRet, "ArgRet");
+        this->AddFunction(SampleCppModule::FunctionWithRet, "Ret");
 
-        // Adding events
-        this->AddInputEvent(PackageModule::LaunchPackageInterface, "LaunchPackageInterface");
-        this->AddInputEvent(PackageModule::FindPackages, "FindPackages");
+        {
+            ArgumentValues values("{\"name\":\"hohoho\"}");
+            this->ExecFunction("Arg", values);
+        }
 
-        this->AddInputEvent(
-            PackageModule::FindPackages, // Function
-            "_FindPackages", // Name of event
-            DevFlag::READY, // State of event
-            "This is a cool feature", // Description
-            {{"path", "std::string", "This is the path of the projct"}, // Args definition (for documentation only) Order : Name, C++ Type, Description
-             {"packages", "std::vector<std::shared_ptr<Package>>", "Packages list to increment"},
-             {"list", "std::vector<std::shared_ptr<PackageInterface>>", "List of packages interface"}},
-            false);
+        {
+            ArgumentValues values("{\"name\":\"hohoho\"}");
+            ReturnValues ret;
+            this->ExecFunction("ArgRet", values, ret);
+            std::cout << "The return of ArgRet is : " << ret.GetJsonValue()["time"].get<std::string>() << std::endl;
+        }
 
-        // Execute main functions
-        this->ExecFunction("RegisterPackages");*/
+        {
+            ReturnValues ret;
+            this->ExecFunction("Ret", ret);
+            std::cout << "The return of Ret is : " << ret.GetJsonValue()["time"].get<std::string>() << std::endl;
+        }
     }
 
     /**
