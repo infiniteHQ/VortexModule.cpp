@@ -1,4 +1,5 @@
 #include "./src/module.hpp"
+#include "./ui/main/ui.hpp"
 
 #ifndef CSampleModule
 SampleCppModule::Context *CSampleModule = NULL;
@@ -22,27 +23,45 @@ public:
         // Get the interface pointer (for GUI launcher, from other modules)
         CSampleModule->m_interface = ModuleInterface::GetEditorModuleByName(this->m_name);
 
+        std::shared_ptr<SampleAppWindow> m_MainWindow = SampleAppWindow::Create("Super window");
+        this->SetMainWindow(m_MainWindow->GetAppWindow());
+
         // Adding functions
         this->AddFunction(SampleCppModule::HelloWorld, "HelloWorld");
         this->AddFunction(SampleCppModule::FunctionWithArg, "Arg");
         this->AddFunction(SampleCppModule::FunctionWithArgRet, "ArgRet");
         this->AddFunction(SampleCppModule::FunctionWithRet, "Ret");
 
+        this->AddOutputEvent(SampleCppModule::OutputHandleHello, "OutputHandleHello");
+        this->AddInputEvent(SampleCppModule::InputHello, "InputHello");
+
         {
             ArgumentValues values("{\"name\":\"hohoho\"}");
-            this->ExecFunction("Arg", values);
+            ReturnValues ret;
+            this->CallInputEvent(this->m_name, "InputHello", values, ret);
         }
 
         {
             ArgumentValues values("{\"name\":\"hohoho\"}");
             ReturnValues ret;
-            this->ExecFunction("ArgRet", values, ret);
+            this->CallOutputEvent("OutputHandleHello", values, ret);
+        }
+
+        {
+            ArgumentValues values("{\"name\":\"hohoho\"}");
+            this->ExecuteFunction("Arg", values);
+        }
+
+        {
+            ArgumentValues values("{\"name\":\"hohoho\"}");
+            ReturnValues ret;
+            this->ExecuteFunction("ArgRet", values, ret);
             std::cout << "The return of ArgRet is : " << ret.GetJsonValue()["time"].get<std::string>() << std::endl;
         }
 
         {
             ReturnValues ret;
-            this->ExecFunction("Ret", ret);
+            this->ExecuteFunction("Ret", ret);
             std::cout << "The return of Ret is : " << ret.GetJsonValue()["time"].get<std::string>() << std::endl;
         }
     }

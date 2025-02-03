@@ -82,6 +82,7 @@
         "source_location": "cpp",
         "ranges": "cpp",
         "typeindex": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "filesystem": "cpp"
     }
 }

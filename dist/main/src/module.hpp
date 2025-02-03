@@ -26,9 +26,11 @@ namespace SampleCppModule
 {
     SAMPLE_MODULE_API void CreateContext();
     SAMPLE_MODULE_API void HelloWorld();
-SAMPLE_MODULE_API void FunctionWithArg(ArgumentValues& val);
-SAMPLE_MODULE_API void FunctionWithRet(ReturnValues& ret);
-SAMPLE_MODULE_API void FunctionWithArgRet(ArgumentValues& val, ReturnValues& ret);
+    SAMPLE_MODULE_API void FunctionWithArg(ArgumentValues& val);
+    SAMPLE_MODULE_API void FunctionWithRet(ReturnValues& ret);
+    SAMPLE_MODULE_API void FunctionWithArgRet(ArgumentValues& val, ReturnValues& ret);
+    SAMPLE_MODULE_API void OutputHandleHello();
+    SAMPLE_MODULE_API void InputHello();
 }
 
 #endif // SAMPLE_MODULE_HPP
