@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.0)
 project(module)
 
-find_library(VORTEX_SHARED_LIBRARY vortex_shared HINTS /lib)
+find_library(VORTEX_SHARED_LIBRARY vortex_shared HINTS ${CMAKE_CURRENT_SOURCE_DIR}/lib/vortex/build/build/)
 
 if(NOT VORTEX_SHARED_LIBRARY)
     message(FATAL_ERROR "Please build/install the vortex core before compiling modules!")

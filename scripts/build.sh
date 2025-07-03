@@ -1,27 +1,41 @@
 #!/bin/sh
 
-# rm -rf build
+rm -rf ../dist
+rm -rf ../build
+
 bash build_vx.sh
 
 mkdir -p ../build
-
 cd ../build
 
 cmake ..
 make
 
-mkdir -p ../dist
-find ../ -mindepth 1 -maxdepth 1 ! -name 'lib' ! -name 'dist' -exec cp -r {} ../dist/ \;
+MODULE_JSON_PATH="../module.json"
+NAME=$(jq -r .name $MODULE_JSON_PATH)
+VERSION=$(jq -r .version $MODULE_JSON_PATH)
+FOLDER_NAME="$NAME-$VERSION"
 
-rm -rf ../dist/build/CMakeFiles
-rm -rf ../dist/scripts
-rm -rf ../dist/.git
-rm -rf ../dist/.vscode
-rm ../dist/build/cmake_install.cmake
-rm ../dist/build/CMakeCache.txt
-rm ../dist/build/dist.tar.gz
-rm ../dist/build/Makefile
-rm ../dist/.gitmodules
-rm ../dist/CMakeLists.txt
+mkdir -p "../dist/$FOLDER_NAME"
 
-tar -czf ../build/dist.tar.gz -C ../ dist
+cp -r ../build ../dist/$FOLDER_NAME/
+cp -r ../lib ../dist/$FOLDER_NAME/ 2>/dev/null || true
+cp -r ../assets ../dist/$FOLDER_NAME/ 2>/dev/null || true
+cp ../module.json ../dist/$FOLDER_NAME/
+
+rm -rf "../dist/$FOLDER_NAME/build/CMakeFiles"
+rm -rf "../dist/$FOLDER_NAME/scripts"
+rm -rf "../dist/$FOLDER_NAME/.git"
+rm -rf "../dist/$FOLDER_NAME/.vscode"
+rm -rf "../dist/$FOLDER_NAME/lib"
+rm "../dist/$FOLDER_NAME/build/cmake_install.cmake" 2>/dev/null || true
+rm "../dist/$FOLDER_NAME/build/CMakeCache.txt" 2>/dev/null || true
+rm "../dist/$FOLDER_NAME/build/dist.tar.gz" 2>/dev/null || true
+rm "../dist/$FOLDER_NAME/build/Makefile" 2>/dev/null || true
+rm "../dist/$FOLDER_NAME/.gitmodules" 2>/dev/null || true
+rm "../dist/$FOLDER_NAME/CMakeLists.txt" 2>/dev/null || true
+
+TAR_NAME="../build/$FOLDER_NAME.tar.gz"
+tar -czf "$TAR_NAME" -C ../dist "$FOLDER_NAME"
+
+echo "Archive créée : $TAR_NAME"
