@@ -3,6 +3,8 @@ project(module)
 
 find_library(VORTEX_SHARED_LIBRARY vortex_shared HINTS ${CMAKE_CURRENT_SOURCE_DIR}/lib/vortex/build/build/)
 
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/lib/vortex/lib/spdlog/include")
+
 if(NOT VORTEX_SHARED_LIBRARY)
     message(FATAL_ERROR "Please build/install the vortex core before compiling modules!")
 endif()
