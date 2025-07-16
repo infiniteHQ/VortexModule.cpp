@@ -5,6 +5,7 @@ rm -rf ../build
 
 bash build_vx.sh
 
+rm -rf ../lib/vortex/tests/project/.vx/modules/
 mkdir -p ../build
 cd ../build
 

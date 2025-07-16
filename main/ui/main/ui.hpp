@@ -12,7 +12,6 @@ class SampleAppWindow : public std::enable_shared_from_this<SampleAppWindow> {
 public:
   SampleAppWindow(const std::string &name);
 
-  void OnImGuiRender();
   void menubar();
 
   std::shared_ptr<Cherry::AppWindow> &GetAppWindow();

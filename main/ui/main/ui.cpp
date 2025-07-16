@@ -30,4 +30,4 @@ void SampleAppWindow::SetupRenderCallback() {
   });
 }
 
-void SampleAppWindow::Render() { CherryKit::TitleOne("Hello World"); }
+void SampleAppWindow::Render() { CherryKit::TitleOne("OU"); }

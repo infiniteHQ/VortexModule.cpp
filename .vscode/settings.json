@@ -83,6 +83,13 @@
         "ranges": "cpp",
         "typeindex": "cpp",
         "valarray": "cpp",
-        "filesystem": "cpp"
+        "filesystem": "cpp",
+        "strstream": "cpp",
+        "coroutine": "cpp",
+        "csetjmp": "cpp",
+        "hash_set": "cpp",
+        "queue": "cpp",
+        "shared_mutex": "cpp",
+        "stack": "cpp"
     }
 }
